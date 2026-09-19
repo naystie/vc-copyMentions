@@ -65,6 +65,7 @@ function addMentionItem(children: Array<ReactElement<any> | null>, label: string
             label={label}
             action={() => copyWithToast(mention, `Copied ${name} mention`)}
             icon={icon}
+            leadingAccessory={{ type: "icon", icon }}
         />
     );
 
