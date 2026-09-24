@@ -59,15 +59,16 @@ const settings = definePluginSettings({
 function MentionIcon({ className }: { className?: string; }) {
     return (
         <svg className={className} width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <mask id="vc-copy-mention-icon">
+            <mask id="vc-copy-mention-back">
                 <rect width="24" height="24" fill="white" />
-                <g fill="none" stroke="black" strokeWidth="1.6" strokeLinecap="round">
-                    <circle cx="14" cy="14" r="2" />
-                    <path d="M16 12.25v2.5a1.6 1.6 0 0 0 3.2 0V14a5.2 5.2 0 1 0-2.1 4.18" />
-                </g>
+                <rect x="3" y="9" width="22" height="14" rx="5" fill="black" />
             </mask>
-            <path d="M3 16a1 1 0 0 1-1-1V8a6 6 0 0 1 6-6h7a1 1 0 0 1 0 2H8a4 4 0 0 0-4 4v7a1 1 0 0 1-1 1Z" />
-            <rect x="6" y="6" width="16" height="16" rx="4" mask="url(#vc-copy-mention-icon)" />
+            <mask id="vc-copy-mention-front">
+                <rect width="24" height="24" fill="white" />
+                <path d="M11.5 13.5 9.5 16l2 2.5M16.5 13.5l2 2.5-2 2.5" fill="none" stroke="black" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </mask>
+            <rect x="2" y="4" width="17" height="10" rx="3.5" fill="none" stroke="currentColor" strokeWidth="2" mask="url(#vc-copy-mention-back)" />
+            <rect x="5" y="11" width="18" height="10" rx="3.5" mask="url(#vc-copy-mention-front)" />
         </svg>
     );
 }
@@ -196,7 +197,7 @@ const patchDevContext: NavContextMenuPatchCallback = (children, { id }: { id: st
 
 export default definePlugin({
     name: "CopyMentions",
-    description: "Adds options to copy user, channel, thread, role and slash command mentions from their context menus.",
+    description: "Adds options to copy user, channel, thread, role and slash command mentions from their context menus",
     authors: [{ name: "Nays", id: 344871509677965313n }],
     tags: ["Utility", "Roles"],
     settings,
