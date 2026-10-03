@@ -30,7 +30,6 @@ interface AppCommand {
 interface Mention {
     label: string;
     mention: string;
-    name: string;
 }
 
 const settings = definePluginSettings({
@@ -73,12 +72,12 @@ function MentionIcon({ className }: { className?: string; }) {
     );
 }
 
-function mentionItem({ label, mention, name }: Mention) {
+function mentionItem({ label, mention }: Mention) {
     return (
         <Menu.MenuItem
             id={ITEM_ID}
             label={label}
-            action={() => copyWithToast(mention, `Copied ${name} mention`)}
+            action={() => copyWithToast(mention, "Copied mention")}
             icon={MentionIcon}
             leadingAccessory={{ type: "icon", icon: MentionIcon }}
         />
@@ -104,8 +103,7 @@ function commandMention(command: AppCommand | null | undefined): Mention | null 
 
     return {
         label: "Copy Command Mention",
-        mention: `</${command.untranslatedName}:${command.rootCommand.id}>`,
-        name: `/${command.untranslatedName}`
+        mention: `</${command.untranslatedName}:${command.rootCommand.id}>`
     };
 }
 
@@ -146,8 +144,7 @@ const patchUserContext: NavContextMenuPatchCallback = (children, { user }: { use
 
     addMentionItem(children, {
         label: user.bot ? "Copy Bot Mention" : "Copy User Mention",
-        mention: `<@${user.id}>`,
-        name: `@${user.globalName ?? user.username}`
+        mention: `<@${user.id}>`
     });
 };
 
@@ -156,8 +153,7 @@ const patchChannelContext: NavContextMenuPatchCallback = (children, { channel }:
 
     addMentionItem(children, {
         label: channel.isThread() ? "Copy Thread Mention" : "Copy Channel Mention",
-        mention: `<#${channel.id}>`,
-        name: `#${channel.name}`
+        mention: `<#${channel.id}>`
     });
 };
 
@@ -190,8 +186,7 @@ const patchDevContext: NavContextMenuPatchCallback = (children, { id }: { id: st
 
     addMentionItem(children, {
         label: "Copy Role Mention",
-        mention: `<@&${role.id}>`,
-        name: `@${role.name}`
+        mention: `<@&${role.id}>`
     });
 };
 
